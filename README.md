@@ -29,10 +29,10 @@ Linux Containers (LXC) are a form of lightweight virtualization. Unlike traditio
 **Example:**  
 If you allocate 4 GB of RAM to a VM, that RAM is reserved whether the VM uses it or not. With LXC, containers only use the RAM they actively need, allowing the host system to better manage and allocate resources across all running containers.
 
-- **So now, here is the bigger picture for your better understanding...**
+- **So now, here is the bigger picture to aid your understanding...**
 Imagine you have a hypervisor running on a server with 16 GB of RAM. If you start up 4 virtual machines, each allocated 4 GB of RAM, the hypervisor reserves all 16 GB for those VMs, even if each VM is only actually using 1 GB. So even though the total active usage is just 4 GB, the entire 16 GB is considered allocated. As a result, if you try to start another VM, it won’t be allowed to run because there's no unallocated RAM available, even though, in practice, there is enough unused memory.
 
-So one of the problems with traditional virtualization is overallocation. Each VM must be assigned a fixed amount of resources (like RAM), and those resources are reserved regardless of whether the VM actively needs them.
+So one of the problems with traditional virtualization is this overallocation. Each VM must be assigned a fixed amount of resources (like RAM), and those resources are reserved regardless of whether the VM actively needs them.
 
 But with LXC, there is no such thing as resource overallocation for any particular container. Containers do not have fixed resources allocated to them. Instead, they all share the same underlying resources and use only what they need at any given time.
 
