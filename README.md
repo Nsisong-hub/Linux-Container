@@ -27,7 +27,14 @@ Linux Containers (LXC) are a form of lightweight virtualization. Unlike traditio
 | Slower boot time (like physical systems) | Instant startup like a normal process    |
 
 **Example:**  
-If you allocate 4 GB of RAM to a VM, that RAM is reserved whether the VM uses it or not. With LXC, containers only use the RAM they actively need, allowing the host system to better manage and allocate resources across all running containers
+If you allocate 4 GB of RAM to a VM, that RAM is reserved whether the VM uses it or not. With LXC, containers only use the RAM they actively need, allowing the host system to better manage and allocate resources across all running containers.
+
+- **So now, here is the bigger picture for your better understanding...**
+Imagine you have a hypervisor running on a server with 16 GB of RAM. If you start up 4 virtual machines, each allocated 4 GB of RAM, the hypervisor reserves all 16 GB for those VMs, even if each VM is only actually using 1 GB. So even though the total active usage is just 4 GB, the entire 16 GB is considered allocated. As a result, if you try to start another VM, it won’t be allowed to run because there's no unallocated RAM available, even though, in practice, there is enough unused memory.
+
+So one of the problems with traditional virtualization is overallocation. Each VM must be assigned a fixed amount of resources (like RAM), and those resources are reserved regardless of whether the VM actively needs them.
+
+But with LXC, there is no such thing as resource overallocation for any particular container. Containers do not have fixed resources allocated to them. Instead, they all share the same underlying resources and use only what they need at any given time.
 
 ---
 
@@ -96,9 +103,11 @@ sudo lxc-attach -n mycontainer
 
 <img width="1116" alt="lxc5" src="https://github.com/user-attachments/assets/d761bc49-2a26-458d-bb27-02ff8596a94d" />
 
-### 6. Boom! You are now in your LXC container  as "root"
+### 6. Boom! You are now in your LXC container  as `root` user
 
 Once inside the container, it behaves just like a typical Linux environment. You can install software, edit configuration files, and configure networking as if it were its own machine.
+- **Note, you can also switch to the default `ubuntu` user, just run:**
+`su ubuntu`
 
 # Conclusion
 Linux Containers (LXC) offer a powerful, lightweight alternative to traditional virtualization. They allow you to run modular, efficient, and isolated services with minimal overhead. As a free and open-source tool, LXC is a valuable addition to any Developers, IT Professionals, sysadmin’s or cloud engineer’s toolkit. NOw, whether you're testing applications, setting up microservices, or building a cloud-native infrastructure, LXC helps you do it with speed and simplicity.
